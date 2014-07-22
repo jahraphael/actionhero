@@ -60,6 +60,7 @@ var connections = function(api, next){
       error: null,
       room: null,
       params: {},
+      routeParams: {},
       response: {},
       pendingActions: 0,
       totalActions: 0,
