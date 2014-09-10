@@ -115,6 +115,7 @@ var connections = function(api, next){
       fingerprint: null,
       rooms: [],
       params: {},
+      routeParams: {},
       response: {},
       pendingActions: 0,
       totalActions: 0,

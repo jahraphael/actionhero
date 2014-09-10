@@ -21,11 +21,13 @@ var routes = function(api, next){
               var decodedName = decodeURIComponent(param.replace(/\+/g, ' '));
               var decodedValue = decodeURIComponent(match.params[param].replace(/\+/g, ' '));
               connection.params[decodedName] = decodedValue;
+              connection.routeParams[decodedName] = decodedValue;
             }catch(e){
               // malformed URL
             }
           }
           connection.params['action'] = route.action;
+          connection.routeParams['action'] = route.action;
           break;
         }
       }
