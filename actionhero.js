@@ -117,19 +117,15 @@ actionhero.prototype.initialize = function(params, callback){
       }
     })
 
-    projectInitializers['_complete'] = function(){
+    async.series(projectInitializers, function(){
       process.nextTick(function(){ next(); });
-    }
-
-    async.series(projectInitializers);
+    });
   }
 
-  orderedInitializers['_complete'] = function(){
+  async.series(orderedInitializers, function(){
     self.api.initialized = true;
     callback(null, self.api);
-  };
-
-  async.series(orderedInitializers);
+  });
 };
 
 actionhero.prototype.start = function(params, callback){
@@ -220,7 +216,7 @@ actionhero.prototype.stop = function(callback){
       }
     }
 
-    orderedStopper['_complete'] = function(){
+    async.series(orderedStopper, function(){
       setTimeout(function(){
         self.api.unWatchAllFiles();
         self.api.pids.clearPidFile();
@@ -229,9 +225,7 @@ actionhero.prototype.stop = function(callback){
         delete self.api.shuttingDown;
         if(typeof callback == 'function'){ callback(null, self.api) }
       }, 500);
-    };
-
-    async.series(orderedStopper);
+    });
   } else if(self.api.shuttingDown === true){
     // double sigterm; ignore it
   } else {

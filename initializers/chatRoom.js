@@ -121,7 +121,7 @@ var chatRoom = function(api, next){
               });
             }
 
-            closers.push(function(){
+            async.series(closers, function(){
               api.chatRoom.setAuthenticationPattern(room, null, null, function(){
                 api.redis.client.srem(api.chatRoom.keys.rooms, room, function(err){
                   api.redis.client.del(api.chatRoom.keys.members + room, function(err){
@@ -130,8 +130,6 @@ var chatRoom = function(api, next){
                 });
               });
             });
-
-            async.series(closers);
             
           });
         });

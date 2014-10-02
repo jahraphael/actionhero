@@ -137,8 +137,7 @@ var actionProcessor = function(api, next){
       });
     });
 
-    processors.push(function(){ callback(toProcess) });
-    async.series(processors);
+    async.series(processors, function(){ callback(toProcess) });
   }
   
   api.actionProcessor.prototype.postProcessAction = function(toRender, callback){
