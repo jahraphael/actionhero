@@ -161,8 +161,7 @@ var actionProcessor = function(api, next){
       });
     });
 
-    processors.push(function(){ callback(toRender) });
-    async.series(processors);
+    async.series(processors, function(){ callback(toRender) });
   }
 
   api.actionProcessor.prototype.reduceParams = function(){
